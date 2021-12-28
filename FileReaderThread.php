@@ -4,9 +4,9 @@ use JetBrains\PhpStorm\NoReturn;
 
 class FileReaderThread extends Thread
 {
-    private $filePath;
-    private $startOfFile;
-    private $lenght;
+    private string $filePath;
+    private int $startOfFile;
+    private int $length;
 
     public function __constructor(string $filePath, int $start, int $end)
     {
@@ -20,10 +20,8 @@ class FileReaderThread extends Thread
      */
     private function setFilePath($filePath)
     {
-        if (!is_file($filePath)) {
-            echo "File Can Not Be Found!";
-            exit(1);
-        }
+        if (!is_file($filePath))
+            $this->errorOccurred("File Can Not Be Found!");
         $this->filePath = $filePath;
     }
 
@@ -41,14 +39,16 @@ class FileReaderThread extends Thread
             $this->errorOccurred("start of file pointer should be greater than 0");
 
         $this->startOfFile = $s;
-        $this->lenght = $e - $s;
+        $this->length = $e - $s;
     }
 
     public function run()
     {
-        $string = file_get_contents($this->filePath, false, null, $this->startOfFile, $this->lenght);
+        $string = file_get_contents($this->filePath, false, null, $this->startOfFile, $this->length);
         if ($string === false)
             $this->errorOccurred("There is an Error reading from File specified");
+
+        echo $string;
     }
 
     /**
