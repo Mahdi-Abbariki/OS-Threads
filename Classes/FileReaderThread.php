@@ -3,6 +3,7 @@
 namespace Classes;
 
 use JetBrains\PhpStorm\NoReturn;
+use Thread;
 
 class FileReaderThread extends Thread
 {
