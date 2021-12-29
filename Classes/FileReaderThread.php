@@ -1,16 +1,20 @@
 <?php
 
+namespace Classes;
+
 use JetBrains\PhpStorm\NoReturn;
 
 class FileReaderThread extends Thread
 {
     private string $filePath;
+    private array $grammar;
     private int $startOfFile;
     private int $length;
 
-    public function __constructor(string $filePath, int $start, int $end)
+    public function __constructor(string $filePath, array $grammar, int $start, int $end)
     {
         $this->setFilePath($filePath);
+        $this->grammar = $grammar;
         $this->setStartAndEnd($start, $end);
     }
 
